@@ -1,0 +1,120 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNY5YVa6XRj8hr51YHcT7Yh",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Guilherme31-code/Documenta-o-C-lculo-da-Moda-Medida-de-Tend-ncia-Central-em-Python/blob/main/Calculando%20a%20Moda%20\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "id": "yPmnBKw4WPE2"
+      },
+      "outputs": [],
+      "source": [
+        "import statistics"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "dados_unimodais = ['maçã', 'banana', 'maçã', 'larabja']"
+      ],
+      "metadata": {
+        "id": "AOu1hziUYdEn"
+      },
+      "execution_count": 2,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "dados_bimodais = [1,1,2,2,3,3,4,4]"
+      ],
+      "metadata": {
+        "id": "urP6WRstYqOo"
+      },
+      "execution_count": 7,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Extraindo uma única moda"
+      ],
+      "metadata": {
+        "id": "agUAeCmcY00p"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "modas = statistics.mode(dados_unimodais)\n",
+        "print(f'Moda Simples: {modas}')"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "5G4MR-JAY4eV",
+        "outputId": "ff033aea-0062-4fa2-a79d-8dfed81d76d3"
+      },
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Moda Simples: maçã\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "modas = statistics.mode(dados_bimodais)\n",
+        "print(f'Múltiplas Modas: {modas}')"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ZTMfQhtwZaNv",
+        "outputId": "64917915-00d7-4fb4-bc27-79420bd54059"
+      },
+      "execution_count": 8,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Múltiplas Modas: 1\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
