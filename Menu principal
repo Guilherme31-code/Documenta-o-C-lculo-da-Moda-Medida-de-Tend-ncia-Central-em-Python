@@ -1,0 +1,283 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMkiz+OgRBzNZIHV49YqBbZ",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Guilherme31-code/Documenta-o-C-lculo-da-Moda-Medida-de-Tend-ncia-Central-em-Python/blob/main/Menu%20principal\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Função para carregar usuários de um arquivo"
+      ],
+      "metadata": {
+        "id": "5uoATLUlFWZb"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def carregar_usuarios():\n",
+        "  try:\n",
+        "    with open(\"usuarios.txt\", \"r\") as arquivo:\n",
+        "      usuarios = {}\n",
+        "      for linha in arquivo:\n",
+        "        nome, senha = linha.strip().split(\",\")\n",
+        "        usuarios[nome] = senha\n",
+        "      return usuarios\n",
+        "  except FileNotFoundError:\n",
+        "    return {}"
+      ],
+      "metadata": {
+        "id": "qR6legH8FdCB"
+      },
+      "execution_count": 12,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Função para login"
+      ],
+      "metadata": {
+        "id": "O1q-etsHFwhg"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def login(usuarios):\n",
+        "  nome = input(\"Digite seu nome de usuário: \")\n",
+        "  senha = input(\"Digite sua senha: \")\n",
+        "  if nome in usuarios and usuarios [nome] == senha:\n",
+        "    print(\"Login bem-sucedido!\")\n",
+        "  else:\n",
+        "    print(\"Nome de usuário ou senha incorretos.\")"
+      ],
+      "metadata": {
+        "id": "21ftj1hfF544"
+      },
+      "execution_count": 9,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Função para cadastrar novo usuario"
+      ],
+      "metadata": {
+        "id": "uR14Pv-QGGfu"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def cadastrar_usuarios(usuarios):\n",
+        "  nome = input(\"Digite o nome de usuário:\")\n",
+        "  if nome in usuarios:\n",
+        "    print(\"Usuário ja existe.\")\n",
+        "    return\n",
+        "  senha = input(\"Digite a senha:\")\n",
+        "  usuarios[nome] = senha\n",
+        "  with open(\"usuarios.txt\", \"a\") as arquivo:\n",
+        "    arquivo.write(f\"{nome},{senha}\\n\")\n",
+        "  print(\"Usuário cadastrado com sucesso!\")"
+      ],
+      "metadata": {
+        "id": "t0o1gG7mGLtz"
+      },
+      "execution_count": 13,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Função para listar usuários"
+      ],
+      "metadata": {
+        "id": "b1NR93mBHFNr"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def listar_usuarios(usuarios):\n",
+        "  if not usuarios:\n",
+        "    print(\"Nenhum usuário cadastrado.\")\n",
+        "  else:\n",
+        "    print(\"\\n--- Lista de Usuários ---\")\n",
+        "    for nome in usuarios.keys():\n",
+        "      print(f\" - {nome}\")"
+      ],
+      "metadata": {
+        "id": "HPLJ3-0dHMSE"
+      },
+      "execution_count": 2,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Função para remover usuário"
+      ],
+      "metadata": {
+        "id": "xANtxc_yHz9r"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def remover_usuario(usuarios):\n",
+        "  nome = input(\"Digite o nome do usuário que deseja remover:\")\n",
+        "  if nome in usuarios:\n",
+        "    del usuarios[nome]\n",
+        "    with open(\"usuarios.txt\", \"w\") as arquivo:\n",
+        "      for usuario, senha in usuarios.items():\n",
+        "        arquivo.write(f\"{usuario}, {senha}\\n\")\n",
+        "    print(f\"Usuário {nome} removido com sucesso!\")\n",
+        "  else:\n",
+        "    print(f\"Usuário {nome} não encontrado.\")"
+      ],
+      "metadata": {
+        "id": "vuWdsb5NH-Bx"
+      },
+      "execution_count": 4,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Função para alterar senha"
+      ],
+      "metadata": {
+        "id": "lgUpW8Q9Io5d"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def alterar_senha(usuarios):\n",
+        "  nome = input(\"Digite o nome do usuário:\")\n",
+        "  if nome not in usuarios:\n",
+        "    print(f\"Usuário {nome} não encontrado.\")\n",
+        "  else:\n",
+        "    nova_senha = input(\"Digite a nova senha:\")\n",
+        "    usuarios[nome] = nova_senha\n",
+        "    with open(\"usuarios.txt\", \"w\") as arquivo:\n",
+        "      for usuario, senha in usuarios.items():\n",
+        "        arquivo.write(f\"{usuario}, {senha}\\n\")\n",
+        "    print(\"Senha alterada com sucesso!\")"
+      ],
+      "metadata": {
+        "id": "7ssLiM7fItdl"
+      },
+      "execution_count": 6,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Menu principal\n"
+      ],
+      "metadata": {
+        "id": "aGAFvKGLJRSc"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def menu_principal():\n",
+        "  usuarios = carregar_usuarios()\n",
+        "  while True:\n",
+        "    print(\"\\n--- Menu Principal ---\")\n",
+        "    print(\"1. Login\")\n",
+        "    print(\"2. Cadastrar Usuário\")\n",
+        "    print(\"3. Listar Usuários\")\n",
+        "    print(\"4. Remover Usuário\")\n",
+        "    print(\"5. Alterar Senha\")\n",
+        "    print(\"6. Sair\")\n",
+        "    opcao = input(\"Escolha uma opção:\")\n",
+        "    if opcao == \"1\":\n",
+        "      login(usuarios)\n",
+        "    elif opcao == \"2\":\n",
+        "      cadastrar_usuarios(usuarios)\n",
+        "    elif opcao == \"3\":\n",
+        "      listar_usuarios(usuarios)\n",
+        "    elif opcao == \"4\":\n",
+        "      remover_usuario(usuarios)\n",
+        "    elif opcao == \"5\":\n",
+        "      alterar_senha(usuarios)\n",
+        "    elif opcao == \"6\":\n",
+        "      print(\"Saindo do programa.\")\n",
+        "      break\n",
+        "    else:\n",
+        "      print(\"Opção inválida. Tente novamente.\")"
+      ],
+      "metadata": {
+        "id": "jI5qEV-RJVJH"
+      },
+      "execution_count": 10,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Executa o programa"
+      ],
+      "metadata": {
+        "id": "tbN2PajoJ0cT"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "menu_principal()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "lFbXkgkDJ5nM",
+        "outputId": "543afa0e-d37c-4988-bbbc-1d46fcf8e7a3"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "--- Menu Principal ---\n",
+            "1. Login\n",
+            "2. Cadastrar Usuário\n",
+            "3. Listar Usuários\n",
+            "4. Remover Usuário\n",
+            "5. Alterar Senha\n",
+            "6. Sair\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
