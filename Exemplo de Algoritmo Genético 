@@ -1,0 +1,86 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyP1fbkYmuGvYp1eHErCR7uk",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Guilherme31-code/Documenta-o-C-lculo-da-Moda-Medida-de-Tend-ncia-Central-em-Python/blob/main/Exemplo%20de%20Algoritmo%20Gen%C3%A9tico%20\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Exemplo de Algoritmo Genético\n"
+      ],
+      "metadata": {
+        "id": "_L7oTMfjgED4"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "VoxpUalYCWTo",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "da1fec6a-a258-415f-8a48-8282ca128514"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Melhor solução: -56.43079775485286\n"
+          ]
+        }
+      ],
+      "source": [
+        "import random\n",
+        "\n",
+        "def fitness(x):\n",
+        "    return x**2  # função de avaliação simples\n",
+        "\n",
+        "def mutate(x):\n",
+        "    return x + random.uniform(-1, 1)\n",
+        "\n",
+        "def crossover(a, b):\n",
+        "    return (a+b)/2\n",
+        "\n",
+        "# Inicialização\n",
+        "population = [random.uniform(-10, 10) for _ in range(10)]\n",
+        "\n",
+        "for generation in range(100):\n",
+        "    population = sorted(population, key=fitness, reverse=True)\n",
+        "    new_pop = population[:2]  # elitismo\n",
+        "    while len(new_pop) < 10:\n",
+        "        parents = random.sample(population[:5], 2)\n",
+        "        child = crossover(parents[0], parents[1])\n",
+        "        child = mutate(child)\n",
+        "        new_pop.append(child)\n",
+        "    population = new_pop\n",
+        "\n",
+        "print(\"Melhor solução:\", max(population, key=fitness))\n"
+      ]
+    }
+  ]
+}
